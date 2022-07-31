@@ -1,0 +1,46 @@
+expname = game_test1
+basedir = ./log
+
+### data info
+datadir = ./data/Game
+dataset_type = pinf_data
+no_batching = True
+half_res = normal
+white_bkgd = True
+testskip = 20
+
+### network arch
+net_model = hybrid
+use_viewdirs = False
+
+### train params - sampling
+N_samples = 64
+N_importance = 64
+N_rand = 1024
+i_embed = -1
+train_warp = True
+vgg_strides = 3 # smaller for thin structures (the leg of the monster)
+vol_output_W = 256
+
+### train params - iterations
+precrop_iters = 5000
+precrop_frac = 0.5
+lrate_decay = 500
+fading_layers = 50000
+tempo_delay = 0
+vel_delay = 20000
+N_iter = 400000 
+
+### train params - loss weights
+vggW = 0.003 # [0.001 - 0.01]
+ghostW = 0.003 # [0.001 - 0.005 ]
+overlayW = 0.002
+d2vW = 0.0 # [0.0 - 4.0, 0.0 good for game scene because the vorticity is not driven by buoyancy]
+
+### scene params
+bbox_min = 0.0,-0.1,-0.1
+bbox_max = 1.2,0.9,1.35
+
+# vol_output_only
+# render_only
+# render_test

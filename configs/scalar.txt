@@ -1,0 +1,43 @@
+expname = scalar_test1
+basedir = ./log
+
+### data info
+datadir = ./data/ScalarReal
+dataset_type = pinf_data
+no_batching = True
+half_res = half
+white_bkgd = True
+testskip = 20
+
+### network arch
+net_model = siren
+use_viewdirs = False
+
+### train params - sampling
+N_samples = 64
+N_importance = 64
+N_rand = 1024
+i_embed = -1
+train_warp = True
+vol_output_W = 128
+
+### train params - iterations
+precrop_iters = 1000
+precrop_frac = 0.5
+lrate_decay = 500
+fading_layers = 50000
+tempo_delay = 0
+vel_delay = 10000
+N_iter = 600000
+
+### train params - loss weights
+vggW = 0.01 # [0.001 - 0.01] larger values are good for high-frequency info
+ghostW = 0.07 # scalar needs a larger ghostW due to density-color ambiguity
+d2vW = 2.0 # [0.0 - 4.0, larger values are good for buoyancy driven smoke]
+
+### scene params
+bbox_min = 0.05
+bbox_max = 0.9
+# vol_output_only
+# render_only
+# render_test
