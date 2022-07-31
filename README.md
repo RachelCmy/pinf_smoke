@@ -81,14 +81,10 @@ After training for 50k iterations (~4 hours on a single NVIDIA Quadro RTX 8000 G
 <table width="100%" align="center" style="vertical-align:top">
   <tr style="text-align: center;">
     <td width="40%">
-      <video width="100%" controls="controls" loop muted>
-        <source src="https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/sphere_test_spiral_050000_rgb.mp4" type="video/mp4" >
-    </video>
+        <img width="100%"src="https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/sphere_test_spiral_050000_rgb.gif" >
     </td>
     <td width="60%">
-     <video width="100%" controls="controls" loop muted>
-        <source src="https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/sphere_test_volume_050000_velrgb.mp4" type="video/mp4" >
-      </video>
+    <img width="100%" src="https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/sphere_test_volume_050000_velrgb.gif" >
     </td>
   </tr>
 </table>    
