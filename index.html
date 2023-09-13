@@ -1,0 +1,199 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<title>Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<!-- Meta tags for Zotero grab citation -->
+	<meta name="citation_title" content="Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data">
+	<meta name="citation_author" content="Chu, Mengyu">
+	<meta name="citation_author" content="Liu, Lingjie">
+	<meta name="citation_author" content="Zheng, Quan">
+	<meta name="citation_author" content="Franz, Erik">
+	<meta name="citation_author" content="Seidel, Hans-Peter">
+	<meta name="citation_author" content="Theobalt, Christian">
+	<meta name="citation_author" content="Zayer, Rhaleb">
+	<meta name="citation_pdf_url" content="./data/paper.pdf">
+
+	<meta name="robots" content="index,follow">
+	<meta name="description" content="High-fidelity reconstruction of dynamic fluids from sparse multiview RGB videos remains a formidable challenge, due to the complexity of the underlying physics as well as the severe occlusion and complex lighting in the captured data. Existing solutions either assume knowledge of obstacles and lighting, or only focus on simple fluid scenes without obstacles or complex lighting, and thus are unsuitable for real-world scenes with unknown lighting conditions or arbitrary obstacles. We present the first method to reconstruct dynamic fluid phenomena by leveraging the governing physics (ie, Navier -Stokes equations) in an end-to-end optimization from a mere set of sparse video frames without taking lighting conditions, geometry information, or boundary conditions as input. Our method provides a continuous spatio-temporal scene representation using neural networks as the ansatz of density and velocity solution functions for fluids as well as the	radiance field for static objects. With a hybrid architecture that separates static and dynamic contents apart, fluid interactions with static obstacles are reconstructed for the first time without additional geometry input or human labeling. By augmenting time-varying neural radiance fields with physics-informed deep learning, our method benefits from the supervision of images and physical priors. To achieve robust optimization from sparse input views, we introduced a layer-by-layer growing strategy to progressively increase the network capacity of the resulting neural representation. Using our progressively growing models with a newly proposed regularization term, we manage to disentangle the density-color ambiguity in radiance fields	without overfitting. A pretrained density-to-velocity fluid model is leveraged in addition as the data prior to avoid suboptimal velocity solutions which underestimate vorticity but trivially fulfill physical equations. Our method exhibits high-quality results with relaxed constraints and strong flexibility on a representative set of synthetic and real flow captures. Code and sample tests are at https://rachelcmy.github.io/webpage/pinf/.">
+
+	<link rel="author" href="http://www.mpi-inf.mpg.de/~mchu/">
+
+	<!-- Fonts and stuff -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/project.css" media="screen">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/iconize.css">
+	<script src="js/google-code-prettify/prettify.js"></script>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1012.0" data-gr-ext-installed="">
+	<div id="content">
+		<div id="content-inner">
+			<div class="section logos" style="text-align:center">
+				<a href="http://www.mpi-inf.mpg.de/" target="_blank"><img src="images/mpii-logo.png" height="58"></a>
+				<a href="https://saarland-informatics-campus.de/en/" target="_blank"><img src="images/sic-logo.png" height="60"></a>
+				<a href="https://www.tum.de/en/" target="_blank"><img src="images/TUM-logo.png" height="60"></a>
+			</div>
+
+			<div class="section head">
+			
+				<h1>Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data</h1>
+
+				<div class="authors">
+					<a href="https://rachelcmy.github.io/" target="_blank">Mengyu Chu</a><sup>1</sup>&nbsp;&nbsp; 
+					<a href="https://lingjie0206.github.io/" target="_blank">Lingjie Liu</a><sup>1</sup>&nbsp;&nbsp; 
+					<a href="https://quan-zheng.github.io/" target="_blank">Quan Zheng</a><sup>1</sup>&nbsp;&nbsp; 
+					<a href="https://ge.in.tum.de/about/erik-franz/" target="_blank">Erik Franz</a><sup>2</sup>&nbsp;&nbsp; 
+					<a href="https://people.mpi-inf.mpg.de/~hpseidel/" target="_blank">Hans-Peter Seidel</a><sup>1</sup>&nbsp;&nbsp;
+					<a href="https://people.mpi-inf.mpg.de/~theobalt/" target="_blank">Christian Theobalt</a><sup>1</sup>&nbsp;&nbsp; 
+					<a href="https://people.mpi-inf.mpg.de/~rzayer/" target="_blank">Rhaleb Zayer</a><sup>1</sup>&nbsp;&nbsp; 
+				</div>
+
+				<div class="affiliations">
+					<sup>1</sup><a href="http://www.mpi-inf.mpg.de/" target="_blank">Max Planck Institute for Informatics, Saarland Informatics Campus</a>
+					  &nbsp;&nbsp; 
+					<sup>2</sup><a href="https://www.tum.de/en/"  target="_blank">Technical University of Munich</a> <br>
+				</div>
+
+<!--
+				<div class="venue">(<a href="http://cvpr2019.thecvf.com/" target="_blank">Accepted to </a>)</div>
+-->
+				
+			</div>
+
+			<div class="section abstract">
+			</div>
+
+
+			<div class="section teaser">
+			<p align="center" style="margin-left:auto;">
+                        <img style="width:90%;" src="data/teaser.jpg">
+                        </p>
+			</div>
+
+<!--
+                        <div class="box">
+                          <iframe src="data/relight1.mp4" frameborder="1" scrolling="no" width="50%" align="left"> </iframe>
+                        </div>
+                        
+                        <div class="box">
+                          <iframe src="data/relight2.mp4" frameborder="1" scrolling="no" width="50%" height="512" align="right"></iframe>
+                        </div>
+				<p style="font-size:11px; text-align:center">
+					Download Video: <a href="data/relight1.mp4" target="_blank">HD</a> (MP4, 53 MB)
+				</p>
+-->
+
+			<div class="section abstract">
+				<h2>Abstract</h2>
+				<p>High-fidelity reconstruction of dynamic fluids from sparse multiview RGB videos remains a formidable challenge, due to the complexity of the underlying physics as well as the severe occlusion and complex lighting in the captured data. Existing solutions either assume knowledge of obstacles and lighting, or only focus on simple fluid scenes without obstacles or complex lighting, and thus are unsuitable for real-world scenes with unknown lighting conditions or arbitrary obstacles. We present the first method to reconstruct dynamic fluid phenomena by leveraging the governing physics (ie, Navier -Stokes equations) in an end-to-end optimization from a mere set of sparse video frames without taking lighting conditions, geometry information, or boundary conditions as input. Our method provides a continuous spatio-temporal scene representation using neural networks as the ansatz of density and velocity solution functions for fluids as well as the	radiance field for static objects. With a hybrid architecture that separates static and dynamic contents apart, fluid interactions with static obstacles are reconstructed for the first time without additional geometry input or human labeling. By augmenting time-varying neural radiance fields with physics-informed deep learning, our method benefits from the supervision of images and physical priors. To achieve robust optimization from sparse input views, we introduced a layer-by-layer growing strategy to progressively increase the network capacity of the resulting neural representation. Using our progressively growing models with a newly proposed regularization term, we manage to disentangle the density-color ambiguity in radiance fields	without overfitting. A pretrained density-to-velocity fluid model is leveraged in addition as the data prior to avoid suboptimal velocity solutions which underestimate vorticity but trivially fulfill physical equations. Our method exhibits high-quality results with relaxed constraints and strong flexibility on a representative set of synthetic and real flow captures. Code and sample tests are at https://rachelcmy.github.io/webpage/pinf/.</p>
+			</div>
+
+                        <div class="section teaser">
+			  <h2>Video</h2>
+							  <!-- <video width="640" height="360" controls=""><source src="data/Main.mp4" type="video/mp4"></video> -->
+				<iframe
+				src="https://www.youtube.com/embed/A-HWuwEDeHs"
+				allow="accelerometer; autoplay; encrypted-media; "
+				allowfullscreen="" frameborder="0" width="656" height="369"></iframe>
+			</div>
+
+            
+			<div class="section downloads">
+				<h2>Downloads</h2>
+				<ul>
+					<li class="grid">
+						<div class="griditem">
+							<a href="data/paper.pdf" target="_blank" class="imageLink"><img src="images/pdf.png"></a><br>
+							<a href="data/paper.pdf" target="_blank">Paper PDF, 3.6MB</a>
+						</div>
+					</li>
+					<li class="grid">
+						<div class="griditem">
+							<a href="https://rachelcmy.github.io/pinf_smoke/ClickMe.html" target="_blank" class="imageLink"><img src="images/page.png"></a><br>
+							<a href="https://rachelcmy.github.io/pinf_smoke/ClickMe.html" target="_blank">Results</a>
+						</div>
+					</li>
+					<li class="grid"> 
+						<div class="griditem">
+							<a href="https://github.com/RachelCmy/pinf_smoke" target="_blank" class="imageLink"><img src="images/data_ico.png"></a><br>
+		
+							<a href="https://github.com/RachelCmy/pinf_smoke" target="_blank">Code</a>
+        					<!-- <a href="https://doi.org/10.1145/3450626.3459845">DOI </a> <br> -->
+						</div>
+					</li>
+
+<!--
+					<li class="grid">
+						<div class = "griditem">
+							<a href="data/supp.pdf" target="_blank" class="imageLink"><img src = "images/pdf.png"></a><br/>
+							Supplementary<br/>
+							<a href="data/supp.pdf" target="_blank">PDF, 10 MB</a>
+						</div>
+					</li>
+					<li class="grid"> 
+						<div class = "griditem"> 
+						<a href="data/video.mp4" target="_blank" class="imageLink"><img src = "images/mp4.png"></a><br />
+						Video<br /> 
+						<a href="data/video.mp4" target="_blank">MP4, 53 MB</a>
+						<br /> 
+						</div>
+					</li>
+-->
+				</ul>
+				</center>
+			</div>
+			<br>
+			<div class="section list">
+				<h2>Citation</h2>
+				<div class="section bibtex">
+					<pre>@article{Chu2022Physics,
+author = {Chu, Mengyu and Liu, Lingjie and Zheng, Quan and Franz, Erik and Seidel, Hans-Peter and Theobalt, Christian and Zayer, Rhaleb},
+title = {Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data},
+journal = {ACM Transactions on Graphics, (Proc. SIGGRAPH)},
+month = {aug},
+number = {4},
+pages = {119:1-119:15},
+volume = {41},
+year = {2022},
+}</pre><p>
+	<meta http-equiv="content-type" content="text/html;
+	  charset=windows-1252">
+	  Mengyu Chu, Lingjie Liu, Quan Zheng, Erik Franz, Hans-Peter Seidel, Christian Theobalt, Rhaleb Zayer. 2022.Physics informed neural fields for smoke reconstruction with sparse data. In ACM Transactions on Graphics  (Proc. SIGGRAPH), vol. 41, no. 4, 119:1-119:15,	2022.
+  </p></div>
+			</div>
+
+
+			<!-- <div class="section acknowledgments">
+				<h2>Acknowledgments</h2>
+				<p>
+                                    This work was supported by the ERC Consolidator Grant 4DReply (770784).
+				</p>
+			</div> -->
+
+			<div class="section contact">
+				<h2>Contact</h2>
+				For questions, clarifications, please get in touch with:<br>
+				Mengyu Chu<a href="mailto:mchu@pku.edu.cn">&lt;mchu@pku.edu.cn&gt;</a>
+			</div>
+
+			<div class="section">
+				<hr class="smooth">
+<!--
+				This page is <a href="http://www.zotero.org" target="_blank">Zotero</a> translator friendly. Page last updated 
+-->
+				<script type="text/javascript">
+					var m = "This page was last updated: " + document.lastModified;
+					var p = m.length-9;
+					document.writeln("<left>");
+					document.write(m.substring(p, 0) + ".");
+					document.writeln("</left>");
+				</script>
+				<!-- <left>This page was last updated: 10/08/2020.</left> -->
+
+				<a href="https://www.mpi-inf.mpg.de/imprint/">Imprint</a>. <a href="https://data-protection.mpi-klsb.mpg.de/inf/gvv.mpi-inf.mpg.de/projects/">Data Protection</a>.
+			</div>
+		</div>
+	</div>
+
+
+<audio controls="controls" style="display: none;"></audio></body><style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:10001;background:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;}</style></html>

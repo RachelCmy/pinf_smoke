@@ -1,0 +1,517 @@
+<html>
+<head>
+<style>
+    .fixwidth {
+      margin: auto;
+      min-width: 760px;
+      max-width: 1400px;
+    }
+    .textwidth {
+      text-align:left;
+      margin: auto;
+      min-width: 760px;
+      max-width: 1000px;
+      font-family: Arial;
+    }
+    .textcenter {
+      text-align:center;
+      margin: auto;
+      min-width: 760px;
+      max-width: 1000px;
+      font-family: Arial;
+    }
+    .labelwidth{
+        text-align:center;
+        font-family: Arial;
+        color:#CEE;
+    }
+    h3 {margin: 0 auto;}
+    h4 { font-weight:normal; margin: 0 auto;}
+    video {margin: 0 auto;}
+    img {margin: 0 auto;}
+    .column {
+      float: middle;
+      width: 24.5%;
+      padding: 4px;
+      flex: 24.5%;
+    }
+    /* Clear floats after image containers */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    .row {
+      display: flex;
+    }
+    .dash_data_C {
+    display: inline-block;
+    }
+    
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tg .tg-9wq8{border-color:#222;text-align:center;vertical-align:middle}
+    .tg .tg-c4ow{border-color:#222;text-align:center;vertical-align:top}
+    .tg .tg-0lax{border-color:#222;padding:0px 0px;text-align:center;vertical-align:bottom}
+    .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    .tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+    
+    .tg .tg-cly1{padding:5px 5px;border-color:white;text-align:left;vertical-align:middle}
+    .tg .tg-mwxe{padding:5px 5px;border-color:white;text-align:right;vertical-align:middle}
+    .tg .tg-baqh{padding:5px 5px;border-color:white;text-align:center;vertical-align:top}
+    .tg .tg-lqy6{padding:5px 5px;border-color:white;text-align:right;vertical-align:top}
+    .tg .tg-nrix{padding:5px 5px;border-color:white;text-align:center;vertical-align:middle}
+    .tg .tg-02ax{padding:5px 5px;border-color:white;text-align:left;vertical-align:top}
+
+    .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-achd{border-color:#9b9b9b;color:#ffffff;text-align:center;vertical-align:top}
+    .tg .tg-achdd{border-color:#9b9b9b;color:#ffffff;text-align:left;vertical-align:top}
+
+    hr {
+    margin-left: auto;
+    margin-right: auto;
+    height: 2px;
+    background-color:#555;
+    border: 0 none;
+    opcaity: 0.8;
+    }
+</style>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+       <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({
+           tex2jax: {
+             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+             processEscapes: true
+           }
+         });
+       </script>
+       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body bgcolor="#111" text="#FFFFFF">
+<div id="_html" class="fixwidth" style="background-color:#222">
+<h1 id="title" align="center"><br>Physics Informed Neural Fluid Fields</h1>
+<h3 align="center"> 
+      
+      <a href="https://rachelcmy.github.io/" target="_blank" style="color:#77BBFF;">Mengyu Chu</a><sup>1</sup>&nbsp;&nbsp; 
+      <a href="https://lingjie0206.github.io/" target="_blank" style="color:#77BBFF;">Lingjie Liu</a><sup>1</sup>&nbsp;&nbsp; 
+      <a href="https://quan-zheng.github.io/" target="_blank" style="color:#77BBFF;">Quan Zheng</a><sup>2</sup>&nbsp;&nbsp; 
+      <a href="https://ge.in.tum.de/about/erik-franz/" target="_blank" style="color:#77BBFF;">Erik Franz</a><sup>3</sup>&nbsp;&nbsp; 
+      <a href="https://people.mpi-inf.mpg.de/%7Ehpseidel/" target="_blank" style="color:#77BBFF;">Hans-Peter Seidel</a><sup>1</sup>&nbsp;&nbsp;
+      <a href="https://people.mpi-inf.mpg.de/%7Etheobalt/" target="_blank" style="color:#77BBFF;">Christian Theobalt</a><sup>1</sup>&nbsp;&nbsp; 
+      <a href="https://people.mpi-inf.mpg.de/%7Erzayer/" target="_blank" style="color:#77BBFF;">Rhaleb Zayer</a><sup>1</sup>&nbsp;&nbsp; 
+</h3>
+<h3 align="center"> <sup>1</sup><a href="http://www.mpi-inf.mpg.de/" target="_blank" style="color:#77BBFF;">Max Planck
+          Institute for Informatics, Saarland Informatics Campus</a><br>
+        &nbsp;&nbsp; <sup>2</sup><a href="https://english.cas.cn/" target="_blank" style="color:#77BBFF;">Chinese Academy of Sciences</a>&nbsp;&nbsp;
+      <sup>3</sup><a href="https://www.tum.de/en/" target="_blank" style="color:#77BBFF;">Technical University of Munich</a> <br>
+</h3>
+      
+<h2 align="center">Supplemental Webpage<br></h2>
+<h4 class="textwidth">
+<br>We provide results in form of this html page, so that individual scenes can be easily and repeatedly watched. 
+<br>Please click on each scene to play the corresponding video. 
+It is helpful to change the zoom level of the browser (Ctrl and +/-) or to view in full screen (double click on videos or right click and open in new view).
+All videos below are located in the video sub-folder.
+<br></h4>
+<div id="outline" align="center" style="font-family:Arial;background-color:#000" >
+<hr/><br>
+This document contains the following parts: <br>
+<table>
+  <tr>
+    <td>
+      <a href="ClickMe.html#1" style="color:#77BBFF;">1. ScalarFlow Datasets</a> <br>
+      &nbsp;&nbsp;&nbsp;<a href="ClickMe.html#1.1" style="color:#77CCCC;">1.1 Synthetic Scene</a> <br>
+      &nbsp;&nbsp;&nbsp;<a href="ClickMe.html#1.2" style="color:#77CCCC;">1.2 Real Captures</a>
+      <br>
+      <a href="ClickMe.html#2" style="color:#77BBFF;">2. Regular Fluids with Complex Lighting</a> <br>
+      &nbsp;&nbsp;&nbsp;<a href="ClickMe.html#2.1" style="color:#77CCCC;">2.1 Regular Plume Scene </a> <br>
+      &nbsp;&nbsp;&nbsp;<a href="ClickMe.html#2.2" style="color:#77CCCC;">2.2 Scenes with Regular Obstacles</a> <br>
+      <a href="ClickMe.html#3" style="color:#77BBFF;">3. Complex Scenes with Arbitrary Obstacles</a> <br>
+      <a href="ClickMe.html#4" style="color:#77BBFF;">4. Training Details</a> <br>
+    </td>
+  </tr>
+</table>
+
+<br><hr/>
+</div>
+
+<h2 id="1" align="center">
+1. ScalarFlow Datasets
+</h2>
+
+
+<h4 id="1.1" class="textcenter">-- 1.1 ScalarFlow Synthetic Smoke -- </h4>
+<table width="72%" align="center">
+  <tr>
+    <td width="63%"> Rendering Comparisons<br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Syn/scalarSyn.mp4?raw=1"><br>
+       </video>
+    </td>
+    <td width="2%"> 
+    </td>
+    <td width="35%"> <h4 style="font-family:Arial;">
+      Taking multiview videos as input, our method learns the spatio-temporal density, color, and velocity fields.<br>
+      "Rendering Comparisons" (left) shows the overall quality of density and color together.
+      While the reference has a black background, we render reconstructions with a blue background, so that "ghost" density in the color of the original background is visible.
+      <br>
+      "Volumetric Density" (below) shows the density alone using a uniform ambient light.<br>
+      "Velocity" and "Vorticity" (further below) are learned implicitly though density fields.<br>
+      <br><br>
+      Note that only GlobalTrans requires lighting conditions and visual hulls as input.
+      Other methods with unknown lighting conditions have to disentangle the ambiguity between density and color.<br>
+      - Our rendering result is close to the reference.<br> 
+      - Neural Volumes has artifacts on novel views due to the existence of "ghost density".<br>
+      - Although Global Transport (GlobalTrans) produces sharp results, it does not faithfully reconstruct the actual scene, but instead has a lot of noise in both density and velocity.<br>
+      </h4>      
+    </td>
+  </tr>
+</table>
+<br>
+<table width="80%" align="center">
+  <tr>
+    <td width="50%"> Volumetric Density, (front-side-top, rendered with uniform ambient lighting) <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Syn/scalarSyn_den.mp4?raw=1"><br>
+       </video>
+    </td>
+    <td width="50%">Warping Errors, (left: warp frame i to i+1; right: warp frame i and i+1 to i+0.5) <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Syn/scalarSyn_warp.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+</table>
+<table width="82%" align="center">
+  <tr>
+    <td> <h4 style="font-family:Arial;">
+      - NeuralVolumes, alpha2den: Due to the "ghost density", the alpha (defined in NV) fails to model the actual smoke density. <br>
+      - NeuralVolumes, rgba2den: The result of alpha*(R+G+B) is closer to the reference, which indicates that the color and density are not properly disentangled.</h4><br>
+      <h4 style="font-family:Arial;">
+      - GlobalTrans-Warp-Error: GlobalTrans has minimal full-step warping error. It is trained at this discrete level of time.<br>
+      - Ref-Warp-Error: Simulated with a time step of 0.5, the reference has a high numerical error when warping with a time step of 1.0<br>
+      - Ours-Warp-Error and Ours-MidWarp-Error: Our continuous model has slightly larger full-step warping error and minimal mid-step warping error. Note that we use the same training data as GlobalTrans without mid-step frames being observed.</h4><br>
+    </td>
+    
+  </tr>
+</table>
+<table width="80%" align="center">
+  <tr>
+    <td width="50%">  <br>Velocity, (the middle slice of front-side-top, intensity reduced outside visual hull) <br>
+      <video width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Syn/scalarSynAll_vel.mp4?raw=1"><br>
+       </video>
+       <br>
+    </td>
+    <td width="50%">  <br>Vorticity, (the middle slice of front-side-top within the visual hull) <br>
+      <video width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Syn/scalarSynAll_vor.mp4?raw=1"><br>
+       </video>
+       <br>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">   </td>
+    <td width="50%"> 
+      <div style="font-family:Arial;" align="right">
+      <a href="ClickMe.html#title" style="color:#77BBFF;">Top</a><br>
+      </div>
+     </td>
+    </tr>
+</table>
+<br>
+
+<h4 id="1.2" class="textcenter">-- 1.2 Real Smoke Captures --</h4>
+<table width="92%" align="center">
+  <tr>
+    <td width="64%"> Rendering Comparisons<br>
+      <video loop width="97%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Real/ScalarReal.mp4?raw=1"><br>
+       </video>
+    </td>
+    <td width="36%"> Volumetric Density, (front-side-top) <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Real/scalarReal_den.mp4?raw=1"><br>
+       </video><br>
+    Velocity(left) and Vorticity(right), (middle slices, front-side-top) <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Real/scalarReal_vel.mp4?raw=1"><br>
+       </video><br>
+    Warping Error, <br> (left: warp frame i to i+1; right: warp frame i and i+1 to i+0.5) <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ScalarFlow_Real/scalarReal_warp.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+</table>
+<table width="90%" align="center">
+  <tr>
+    <td width="28%"> <h4 style="font-family:Arial;">
+      The conclusion of the synthetic scene evaluation is consistent with the real case,
+      where NeuralVolumes contains "ghost density" and GlobalTrans has noises.
+      The noise is more visible when looking at the density alone in "Volumetric Density" on top right, as well as in the velocity and vorticity fields.
+      "Warping Error" on the bottom right shows that our results fulfill the transport equation better than GlobalTrans on  the real case.
+    </td>
+  </tr>
+</table><br><br>
+
+<div style="font-family:Arial;" align="right">
+<a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+</div> 
+
+<div style="background-color:#000" >
+<hr/>
+<h2 id="2" align="center">
+2. Synthetic Scenes with Complex Lighting
+</h2>
+<h4 id="2.1" class="textcenter">-- 2.1 The Plume Scene with Velocity Comparisons --</h4>
+<table width="90%" align="center">
+  <tr>
+    <td  width="100%"  text-align="center">Rendering Comparisons <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/Plume/cmp.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+  <tr>
+    <td> <h4 style="font-family:Arial;">
+      - NeuralVolumes: With much "ghost density", NeuralVolumes can easily render more details, since keeping view-consistency is not necessary with their occlusion.<br>
+      - Deformation: Representing turbulent fluid dynamics as deformation fields is ill-posed and results in stretches due to rigid motion.<br>
+      - Ours w.o. d2v: Comparing to NeuralVolumes, Ours w.o. d2v significantly reduces the "ghost density", but has color-bleeding artifacts due to less accurate velocity fields<br>
+      - Ours: Our results match the reference in both training and novel views best with properly disentangled density and color.<br>
+    </h4><br>
+    </td>
+    
+  </tr>
+  <tr>
+    <td  width="100%" text-align="center"><br>Volumetric Comparisons <br>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/Plume/volume.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+  <tr>
+    <td> <h4 style="font-family:Arial;">
+     The color-bleeding artifact is more visible in the density visualization.
+     Our velocity is closer to the reference with enhanced vorticity.
+    </h4><br>
+    </td>
+    
+  </tr>
+  <tr>
+    <td  width="100%" ><br>
+      <div style="font-family:Arial;" align="right">
+        <a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+        </div> 
+    </td>
+  </tr>
+</table>
+<h4 id="2.2" class="textcenter">-- 2.2 Plume Scene with A Regular Obstacle --</h4>
+<br>
+<h4 class="textcenter">Comparisons with Related Work</h4>
+<table width="95%" align="center">
+  <tr>
+    <th width="20%" >Sphere Scene, Ref</th>
+    <th width="20%" >Ours</th>
+    <th width="20%" >Ours w.o. d2v</th>
+    <th width="20%" >NeRF+T</th>
+    <th width="20%" >Neural Volumes</th>
+  </tr>
+</table>
+<table width="95%" align="center">
+  <tr>
+    <td  width="100%" >
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ObsSphere/cmp.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+  <tr>
+    <td> <h4 style="font-family:Arial;"  >
+      "Ghost density" is visible everywhere for NeRF+T. 
+      NeuralVolumes has some "ghost density" in white and some in the color of the sphere.
+      Ours reconstructs the smoke nicely, while Ours w.o. d2v is slightly blurry
+    </h4><br>
+    </td>    
+  </tr>
+</table>
+<br>
+<div style="font-family:Arial;" align="right">
+  <a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+  </div> <br>
+<h4 class="textcenter">Our Results </h4>
+
+<table width="60%" align="center"> 
+  <tr>
+    <th>Unsupervised Separation of Static and Dynamic parts</th>
+  </tr>
+  <tr>
+    <td>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ObsSphere/oursSphere.mp4?raw=1"><br>
+       </video>
+    </td>
+    <tr>
+      <td> <h4 style="font-family:Arial;"  >
+       Static and dynamic components are nicely seperated.
+      </h4><br>
+      </td>    
+    </tr>
+  </tr>
+</table>
+<br>
+<table width="95%" align="center">
+  <tr>
+    <th>Estimated Density and Velocity </th>
+  </tr>
+  <tr>
+    <td>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ObsSphere/volume.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+  <tr>
+    <td> <h4 style="font-family:Arial;" align="center">
+     With the model-based supervision, our full model presents more accurate velocity with clearer vorticity.
+    </h4><br>
+    </td>    
+  </tr>
+  
+</table>
+<div style="font-family:Arial;" align="right">
+  <a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+  </div> 
+  <br><br>
+<hr/>
+</div>
+
+<h2 id="3" align="center">
+3. Complex Scenes with Arbitrary Obstacles
+</h2>
+<h4 class="textwidth">In the following, we tested our algorithm on complex scenes with arbitrary obstacles. Our method can successfully separate dynamic fluids and obstacles without any human labeling, which is previously impossible. </h4>
+<br>
+<h4 class="textcenter">3.1 The Car Scene (Fig.12 in the paper)</h4>
+<div align="center">
+  <video loop width="60%" controls="controls">
+   <source type="video/mp4" src="videos/ComplexScenes/car.mp4?raw=1"><br>
+  </video>
+</div><br>
+<h4 class="textcenter">3.2 The Game Scene (Fig.13 in the paper)</h4>
+<div align="center">
+  <video loop width="85%" controls="controls">
+   <source type="video/mp4" src="videos/ComplexScenes/game.mp4?raw=1"><br>
+  </video>
+</div><br>
+<h4 class="textcenter">3.3 Estimated Density and Velocity w.r.t. the Ground Truth (Fig.12, 13 in the paper)</h4>
+<table width="95%" align="center">
+  <tr>
+    <th width="52%" >Car </th>
+    <th width="42%" >Game </th>
+  </tr>
+  <tr>
+    <td>
+      <video loop width="100%" controls="controls">
+        <source type="video/mp4" src="videos/ComplexScenes/carVel.mp4?raw=1"><br>
+       </video>
+    </td>
+    <td>
+      <video loop width="90%" controls="controls">
+        <source type="video/mp4" src="videos/ComplexScenes/gameVel.mp4?raw=1"><br>
+       </video>
+    </td>
+  </tr>
+</table>
+
+
+<div style="font-family:Arial;" align="right">
+<a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+</div> 
+
+<h2 id="4" align="center">
+  4. Training Details
+</h2>
+<h4 class="textwidth"> Across all scenes, we use the Adam optimizer with a learning rate of 0.0001. 
+Other details of each scene are given in the following table (using a single NVIDIA Quadro RTX 8000 GPU):</h4>
+<table class="tg">
+  <thead>
+    <tr>
+      <th class="tg-achd" colspan="2">Scenes</th>
+      <th class="tg-achd">Image Resolution</th>
+      <th class="tg-achd">Total Training <br>Iterations</th>
+      <th class="tg-achd">Total Training<br>Time</th>
+      <th class="tg-achd">Hyper-parameters for <br>Radiance Supervision</th>
+      <th class="tg-achd">Hyper-parameters for <br>Velocity Supervision</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tg-achd" rowspan="2">ScalarFlow</td>
+      <td class="tg-achd">Synthetic</td>
+      <td class="tg-achd">360x640</td>
+      <td class="tg-achd">200k</td>
+      <td class="tg-achd">30h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.1\mathcal{L}_{ghost}$</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+    <tr>
+      <td class="tg-achd">Real</td>
+      <td class="tg-achd">540x960</td>
+      <td class="tg-achd">500k</td>
+      <td class="tg-achd">74h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.1\mathcal{L}_{ghost}$</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+    <tr>
+      <td class="tg-achd" rowspan="2">Complex<br>Lighting</td>
+      <td class="tg-achd">Plume</td>
+      <td class="tg-achd">400x400</td>
+      <td class="tg-achd">200k</td>
+      <td class="tg-achd">31h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.05\mathcal{L}_{ghost}$</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+    <tr>
+      <td class="tg-achd">Sphere</td>
+      <td class="tg-achd">400x400</td>
+      <td class="tg-achd">150k</td>
+      <td class="tg-achd">37h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.05\mathcal{L}_{ghost} + 0.05\mathcal{L}_{overlay} $</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+    <tr>
+      <td class="tg-achd" rowspan="2">Complex<br>Obstacles</td>
+      <td class="tg-achd">Car</td>
+      <td class="tg-achd">960x500</td>
+      <td class="tg-achd">200k</td>
+      <td class="tg-achd">51h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.01\mathcal{L}_{ghost} + 0.05\mathcal{L}_{overlay} $</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+    <tr>
+      <td class="tg-achd">Game</td>
+      <td class="tg-achd">800x800</td>
+      <td class="tg-achd">250k</td>
+      <td class="tg-achd">64h</td>
+      <td class="tg-achdd">$\mathcal{L}_{\widetilde{\mathit{img}}} + 0.025\mathcal{L}_{VGG} + 0.01\mathcal{L}_{ghost} + 0.05\mathcal{L}_{overlay} $</td>
+      <td class="tg-achdd">$2\mathcal{L}_{\frac{D\sigma}{Dt}} + 0.0005\mathcal{L}_{NSE} + 6\mathcal{L}_{d2v}$</td>
+    </tr>
+  </tbody>
+  </table><br>
+  <h4 class="textwidth">
+  For the ScalarFlow scenes, the ghost density regularization is more heavily weighted because the smoke is more transparent and only front views are given. In other scenes, the density-color ambiguity is less challenging because they either have denser smoke or they use more cameras and wider viewing angles. Therefore, the regularization term can be reduced.</h4>
+<div style="font-family:Arial;" align="right">
+  <a href="ClickMe.html#title" style="color:#77BBFF;">Top</a>
+</div> 
+
+<div style="background-color:#000" >
+<hr/>
+
+</body></html>
+
