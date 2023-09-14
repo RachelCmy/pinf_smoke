@@ -1,6 +1,6 @@
 # Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data
 This is the pytorch implementation of the paper, "Physics Informed Neural Fields for Smoke Reconstruction with Sparse Data" (SIGGRAPH 2022, TOG journal paper), from M. Chu, L. Liu, Q. Zheng, E. Franz, H.P. Seidel, C. Theobalt, R. Zayer. 
-The [project page](https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/) contains the paper and other materials.  
+The [project page](https://rachelcmy.github.io/pinf_smoke/) contains the paper and other materials.  
 ![](./imgs/teaser.jpg)
 
 ## Installation
@@ -75,9 +75,9 @@ python run_pinf.py --config configs/sphere.txt
 # To Reconstruct the Game Scene:
 python run_pinf.py --config configs/game.txt
 ```
-After training for 50k iterations (~4 hours on a single NVIDIA Quadro RTX 8000 GPU), you can find the following video at `logs/xxxxx/xxxxx_spiral_050000_rgb.mp4` and `logs/xxxxx/xxxxx_volume_050000_velrgb.mp4`, which render the radiance and visualize the velocity fields like these (some early results):
+After training for 50k iterations (~4 hours on a single NVIDIA Quadro RTX 8000 GPU), you can find the following video at `logs/xxxxx/xxxxx_spiral_050000_rgb.mp4` and `logs/xxxxx/xxxxx_volume_050000_velrgb.mp4`, which render the radiance and visualize the velocity fields.
 
-<div>
+<!-- <div>like these (some early results):
 <table width="100%" align="center" style="vertical-align:top">
   <tr style="text-align: center;">
     <td width="40%">
@@ -88,9 +88,9 @@ After training for 50k iterations (~4 hours on a single NVIDIA Quadro RTX 8000 G
     </td>
   </tr>
 </table>    
-</div>
+</div> -->
 
-The full training takes 200k to 600k iterations (around 1 day or longer on a single NVIDIA Quadro RTX 8000 GPU). The results of the papar ( given in the [supplemental materials](https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/supplementary/ClickMe.html) ) are generated with code based on Tensorflow. We publish the PyTorch version which is around 1-1.5 times faster.
+The full training takes 200k to 600k iterations (around 1 day or longer on a single NVIDIA Quadro RTX 8000 GPU). The results of the papar ( given in the [supplemental materials](https://rachelcmy.github.io/pinf_smoke/ClickMe.html) ) are generated with code based on Tensorflow. We publish the PyTorch version which is around 1-1.5 times faster.
 
 __Static NeRF Support:__ Static NeRF scenes can be reconstructed in the same way as in [NeRF-PyTorch](https://github.com/yenchenlin/nerf-pytorch)  
 

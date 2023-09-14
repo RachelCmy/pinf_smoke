@@ -410,7 +410,7 @@ class DenToVel(nn.Module):
 
         if not os.path.exists(ckpt):
             print(ckpt, "does not exist. Try to download d2v model for training...")
-            download_file(ckpt, "https://people.mpi-inf.mpg.de/~mchu/projects/PI-NeRF/content/d2v_3Dmodel.npz")
+            download_file(ckpt, "https://rachelcmy.github.io/pinf_smoke/data/d2v_3Dmodel.npz")
         
         self.var_dict = np.load(ckpt, allow_pickle=True)["arr_0"].item()
         var_list = [self.var_dict[k] for k in namelist]
